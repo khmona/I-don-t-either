@@ -2,11 +2,11 @@ var mongoose= require('mongoose');
 
 var CarSchema = mongoose.Schema({
 
-	reg: {type: String, required: true},
+	registration: {type: String, required: true},
 	model: {type: String, required: true},
-	owner: {type: mongoose.Schema.Types.ObjectID, ref:'Customers'},
-	damages: {type: mongoose.Schema.Types.ObjectID, ref:'Damage'},
+	damages: {type: mongoose.Schema.Types.ObjectID, ref:'damage'},
+  customer: {type: mongoose.Schema.Types.ObjectID, ref:'csustomers'}
 
 })
 
-module.exports= m.mongoose.model('Car', carSchema)
+module.exports= m.mongoose.model('car', carSchema)
