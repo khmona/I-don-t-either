@@ -1,15 +1,17 @@
 'use strict';
 
-var nyBil = require("../help-modules/bilGenerator.js")
+
 module.exports = class Server {
 
 	constructor(){
 
-		this.setting = g.settings.Server;
+		this.settings = g.settings.Server;
 
 		this.app = m.express();
 
 		this.db = new g.classes.DB();
+
+		new g.classes.REST(this.app);
 
 
 		this.model = this.db.getModel(this.settings.bilModel)
@@ -34,5 +36,10 @@ module.exports = class Server {
 		this.app.use(m.bodyparser.urlrncoded({extended: false}));
 
 		var me = this;
+
+		this.app.listen(this.settings.port, function(){
+			console.log('Server listening on port ' + me.settings.port);
+		});
 	}
 }
+

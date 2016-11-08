@@ -14,7 +14,7 @@ module.exports = function() {
     },
     Server: {
       endpoint: '*',
-      webroot: 'www',
+      webroot: 'public',
       indexFile: 'index.html',
       port: 3000
     },

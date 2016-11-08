@@ -1,10 +1,10 @@
 var mongoose= require('mongoose');
 
-var customersSchema = mongoose.Schema({
+var customerSchema = mongoose.Schema({
 
 	name: {type: String, required: true},
 	number: {type: String, required: true},
   
 })
 
-module.exports= m.mongoose.model('customer', customersSchema')
+module.exports= m.mongoose.model('customer', customerSchema)
