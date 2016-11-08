@@ -11,10 +11,6 @@ module.exports = class Server {
 
 		this.db = new g.classes.DB();
 
-		new g.classes.REST(this.app);
-
-
-
 		this.setup();
 	}
 
@@ -33,6 +29,8 @@ module.exports = class Server {
 		this.app.use(m.cookieparser());
 
 		this.app.use(m.bodyparser.urlencoded({extended: false}));
+
+		new g.classes.REST(this.app);
 
 		var me = this;
 
