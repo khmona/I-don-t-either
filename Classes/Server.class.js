@@ -14,14 +14,13 @@ module.exports = class Server {
 		new g.classes.REST(this.app);
 
 
-		this.model = this.db.getModel(this.settings.bilModel)
 
 		this.setup();
 	}
 
 	setup(){
 
-		this.app.use(m.bodyparser.Json());
+		this.app.use(m.bodyparser.json());
 
 		this.app.use(
 			m.express.static(
@@ -33,7 +32,7 @@ module.exports = class Server {
 
 		this.app.use(m.cookieparser());
 
-		this.app.use(m.bodyparser.urlrncoded({extended: false}));
+		this.app.use(m.bodyparser.urlencoded({extended: false}));
 
 		var me = this;
 

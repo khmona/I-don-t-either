@@ -60,7 +60,7 @@ module.exports = class REST {
       res.json(result); // respond with result
     });
   }
-
+  
   // UPDATE
   PUT(model, params, req, res) {
     if (!params.modelID) { this.error({error: 'Missing ID!'}, res); return; }

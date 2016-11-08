@@ -39,7 +39,7 @@ module.exports = class DB {
     // find all files in the model directory,
     var modelFiles = m.fs.readdirSync(this.settings.modelDir);
     
-    // console.log("mf", modelFiles);
+    console.log("mf", modelFiles);
 
     // and require each of them
     modelFiles.forEach(function(fileName) {
