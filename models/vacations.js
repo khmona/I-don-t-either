@@ -8,4 +8,4 @@ var vacationSchema = mongoose.Schema({
 
 })
 
-module.exports= m.mongoose.model('Vacation', vacationSchema)
+module.exports= m.mongoose.model('vacations', vacationSchema)

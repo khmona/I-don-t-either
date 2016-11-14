@@ -7,4 +7,4 @@ var customerSchema = mongoose.Schema({
   
 })
 
-module.exports= m.mongoose.model('customer', customerSchema)
+module.exports= m.mongoose.model('customers', customerSchema)

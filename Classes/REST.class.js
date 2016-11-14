@@ -16,6 +16,7 @@ module.exports = class REST {
     this.app.all(this.settings.route, function(req, res) {
       if(req.params.model == "ny"){
         dummyGen();
+        res.json(dummyGen())
       }
       else {
         var model = me.DB.getModel(req.params.model);
