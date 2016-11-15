@@ -54,7 +54,7 @@ module.exports = class REST {
       })
     }  
     else{
-      model.findById(function(err, result){
+      model.findById(params.modelID, function(err, result){
         res.json(result)
         res.end()
       })
