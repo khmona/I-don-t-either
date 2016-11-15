@@ -15,6 +15,7 @@ module.exports = function() {
   regArr = ["ABC 123","DEF 345","GHI 456","JKL 567","MNO 678","PQR 789"," STU 890","VXY 012"," XYZ 123","KPG 856","HAM 041","AKF 222","YUA 621","AYH 999","GRA 666","NIT 333","FLY 696","TIO 337","HAL 239","OLA 753"];
   modelArr = ["Mercedes Benz A2","Toyota Carrila -00","VW GOLF -12","Mercedes Benz E100 -16","Alfa Romeo 75","Audi A4 -99","BMW 327 -15","Bugatti EB110 -14","Chevrolet Opala -11","Jaguar XK -09","Jeep Wrangler -02","Lamborghini Urraco 03","Lincoln Town Car -66","Opel Corsa -87","Peugeot 206 -00","Porsche 928 -08","Renault 5 -06","Volvo 140 -55","Toyota Prius -14","Nissan Micra -88"];
   usedRegs = [];
+  damageStatus= ["awaiting", "ongoing", "finished"];
 
   var aCustomer = new Customer({
     name: nameArr[Math.round(Math.random()*nameArr.length-1)],
@@ -40,6 +41,7 @@ module.exports = function() {
         hasWorkedOn: aCustomer._id,
         hasWorkedForMinutes: Math.round(Math.random()*60),
         sparePartsUsed: aPart._id,
+        status: damageStatus[Math.round(Math.random()*damageStatus.length)],
       }) 
       aDamage.save(function(err){
         if(err) {console.log(err)}
