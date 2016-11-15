@@ -1,6 +1,7 @@
 'use strict';
 var s = g.settings;
 var dummyGen = require("../dummyGen.js");
+var populator = require("../populator.js")
 
 module.exports = class REST {
   constructor(express) {
@@ -16,7 +17,11 @@ module.exports = class REST {
     this.app.all(this.settings.route, function(req, res) {
       if(req.params.model == "ny"){
         dummyGen();
-        res.json(dummyGen())
+        res.end();
+      }
+      else if(req.params.model == "populate"){
+        
+        res.json(populator(me.DB));
       }
       else {
         var model = me.DB.getModel(req.params.model);
@@ -55,9 +60,15 @@ module.exports = class REST {
         q = params.modelID ? params.modelID : {};
 
     model[func](q, function(err, result) {
-      if (err) { me.error(err, res); return; }
-      res.json(result); 
-    });
+      if (err) { me.error(err, res); return; } 
+    }).populate("damages")
+    .populate("sparePartsUsed")
+    .populate("customer")
+    .populate("hasWorkedOn")
+    .populate("vacation")
+    .exec(function(err,results){
+      res.json(results);
+    })
   }
   
   

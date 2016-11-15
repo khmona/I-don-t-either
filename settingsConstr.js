@@ -36,6 +36,9 @@ module.exports = function() {
     },
     REST: {
       route: '/rest/:model/:modelID?'
+    },
+    Login: {
+      route: '/rest/login'
     }
   };
 };
