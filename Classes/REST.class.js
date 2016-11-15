@@ -1,10 +1,9 @@
 'use strict';
-var s = g.settings;
 var dummyGen = require("../dummyGen.js");
 
 module.exports = class REST {
   constructor(express) {
-    this.settings = s.REST;
+    this.settings = g.settings.REST;
     this.DB = new g.classes.DB(); 
     this.app = express;
 
@@ -16,17 +15,17 @@ module.exports = class REST {
     this.app.all(this.settings.route, function(req, res) {
       if(req.params.model == "ny"){
         dummyGen();
-        res.json(dummyGen())
+        res.end();
       }
       else {
         var model = me.DB.getModel(req.params.model);
         if (!me[req.method] || !model || !model == "ny") {
           res.sendStatus(404);
-          res.end();
+          res.json({'err':'Undefined model'});
           return;
         }
 
-        var params = req.body || {};  // VARFÖR TOMT OBJEKT!
+        var params = req.body || {};
         params.model = req.params.model; 
         if (req.params.modelID) {
           params.modelID = req.params.modelID;
@@ -49,7 +48,20 @@ module.exports = class REST {
   }
 
   GET(model, params, req, res) {
-    
+    if(!params.modelID){
+      model.find(function(err, result){
+        res.json(result)
+      })
+    }  
+    else{
+      model.findById(function(err, result){
+        res.json(result)
+        res.end()
+      })
+    }
+
+
+   /* 
     var me = this,
         func = params.modelID ? 'findById' : 'find',
         q = params.modelID ? params.modelID : {};
@@ -58,6 +70,7 @@ module.exports = class REST {
       if (err) { me.error(err, res); return; }
       res.json(result); 
     });
+    */
   }
   
   
@@ -66,7 +79,7 @@ module.exports = class REST {
 
     var me = this;
     model.findByIdAndUpdate(params.modelID, params, {new: true}, function (err, result) {
-      if (err) { me.error(err, res); return; }
+      if (err) { console.log(err) }
       res.json(result);
     });
   }
@@ -76,8 +89,8 @@ module.exports = class REST {
 
     var me = this;
     model.findByIdAndRemove(params.modelID, function(err, result) {
-      if (err) { me.error(err, res); return; }
-      res.json(true); 
+      if (err) { console.log(err) }
+      res.json({'ok': 'raderat'}); 
     });
   }
 
