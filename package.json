@@ -12,6 +12,7 @@
     "gulp": "*",
     "gulp-less": "*",
     "gulp-clean-css": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "mysql": "*"
   }
 }
