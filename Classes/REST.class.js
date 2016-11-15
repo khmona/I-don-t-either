@@ -59,18 +59,6 @@ module.exports = class REST {
         res.end()
       })
     }
-
-
-   /* 
-    var me = this,
-        func = params.modelID ? 'findById' : 'find',
-        q = params.modelID ? params.modelID : {};
-
-    model[func](q, function(err, result) {
-      if (err) { me.error(err, res); return; }
-      res.json(result); 
-    });
-    */
   }
   
   

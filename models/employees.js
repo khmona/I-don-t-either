@@ -2,7 +2,7 @@ var mongoose= require('mongoose');
 
 var employeesSchema = mongoose.Schema({
 
-	SSN: {type: Number, required: true},
+	SSN: {type: String, required: true},
 	name: {type: String, required: true},
 	vacation: {type: mongoose.Schema.Types.ObjectId, ref: 'vacations'},
 

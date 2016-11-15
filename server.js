@@ -16,6 +16,12 @@ g = {}; // all global variables (ex. settings)
   "gulp-less",
   "gulp-clean-css",
   "mongoose",
+  "./models/cars",
+  "./models/customers",
+  "./models/damages",
+  "./models/employees",
+  "./models/spares",
+  "./models/vacations",
   "./settingsConstr",
   "./classLoader"
 ].forEach(function(x){
