@@ -24,11 +24,17 @@ module.exports = class Server {
 			)
 		);
 
-		this.app.use(m.compression());
+		this.app.use(m.compression({threshold: 0}));
 
 		this.app.use(m.cookieparser());
 
 		this.app.use(m.bodyparser.urlencoded({extended: false}));
+
+		this.app.use(m.expresssession({
+			secret: 'Hublot',
+			resave: false,
+			saveUninitialized: true
+		}));
 
 		new g.classes.REST(this.app);
 

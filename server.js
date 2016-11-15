@@ -5,6 +5,7 @@ g = {}; // all global variables (ex. settings)
 // Require modules
 [
   "express",
+  "express-session",
   "compression",
   "path",
   "fs",
