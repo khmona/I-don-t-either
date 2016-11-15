@@ -3,6 +3,8 @@ var Damage = require("./models/damages.js");
 var Employee = require("./models/employees.js")
 var Customer = require("./models/customers.js")
 var Bil = require("./models/cars.js")
+var Vacation= require("./models/vacations.js")
+
 
 module.exports = function() {
   serialArr = "2223X-D46QP9-D56BPN 2556LL-R5K4-V5PF 286E-T9PS-RAG2 2FVL-HES2-R4YM 368L-9VGD-NNN2 3BH8-HWVW-25H2 3L2B-RGPV-DKAR 4S23-5873-VKLM 5DGB-Q4E7-G6CZ 5KMM-JDZB-P29M 5WSD-ABVS-HCSM 5Z5T-4S4J-HQ8W 659J-P57F-EHWY 6BTQ-M6HG-3S3W 6CWL-P4QM-X5HW 6HTE-JSQG-BR35 6LRJ-8EF4-S5YS 73ZD-J9KV-8P89 7AVF-VZ2L-GN9B 7DYD-6ETQ-57UY 7GA2-9K2J-WF4N 7RPT-CNL7-5SXS 82L5-BYQ4-LSZD 8EFB-P6ZT-X8PH 8EY3-TVV8-5QHD 8H32-HBQH-J3G6 92P8-Q9KD-3VR4 9BFX-XJUA-6DZD APFF-HWMY-JVUL AT2V-6MET-VEN6 BF8K-LJJH-UPCG BG4Q-HJCG-BXJ8 BLBB-RKZQ-FRAM BXXG-RTN2-RDCP CJJT-KGDW-SBD7 CMPA-FUUQ-DN7T CN48-JR9J-Q9F7 CSVC-PEMN-K2PV CV7K-Y3N6-WMDK EPSN-AX5M-G76W EPWU-V96F-SSNT ESMG-GAAN-HKAT ETGF-Y8JV-FUH6 EYN7-722R-JDJ9 F9QD-PV7F-PGJJ FY6B-BLQQ-SGE9 G7T6-5X58-7BGW GCCN-U234-GHPJ GESB-K25S-HU5T GG8Z-TMQD-9XZ6 GMJJ-542D-ZZNW GSSQ-8CE6-FUUN GY76-WBFS-7AGN HQ5R-NQBT-DFA7 J346-DV3R-HCZD J3XJ-WUXX-KAB6 J5CQ-TJZE-VGUX J88B-GUFB-YGZX J9ZY-J28P-3LXA JBDX-J55M-9YPG JMSQ-XGDF-FGAU K3QP-ZSEN-FE2G KJXH-QGFL-JPYT KWW5-F8S2-9NEM L8FH-SHPH-YAF2 LT37-5A38-AN5N N2EJ-JLEM-VLCU NVGB-PYT6-MMYF P2QU-FMYL-7HET PF78-KJED-33FP PGSQ-N5QJ-NT45 Q7TT-EN3F-YSMM QMZ2-BZDF-8CPK S6YT-P3GK-59JB SHVQ-64UM-83C6 SJMJ-348L-682Y U3LJ-4RQF-283E U9XP-8H7E-A5MQ UR3T-PEUV-X5S6 UUMV-8UJ5-XZ9V V9XZ-MFYW-2MYM VN28-9JZD-ZUTU VN7G-CKD3-DJ2W W5K9-KSBA-4BHJ WAMN-E2TY-TZLJ WGHM-YNA4-N4MP WS5C-3ALR-997V WT68-9AHH-AJX6 X8ZL-9WJ7-A3BQ XGZM-WUUB-Q6S7 XMKH-VTJM-M4HS XU6F-6E77-8GCP XXNS-BMJX-NHPC Y5WG-WVS4-2PJE YSHG-FKHH-G8J3 YZ5R-E9GN-YJQN Z88G-G8GR-ZBMS ZEPD-DS48-CL24 ZHVR-RZJ2-A8GD ZXH8-F27J-8LBY".split("-");
@@ -16,62 +18,82 @@ module.exports = function() {
   modelArr = ["Mercedes Benz A2","Toyota Carrila -00","VW GOLF -12","Mercedes Benz E100 -16","Alfa Romeo 75","Audi A4 -99","BMW 327 -15","Bugatti EB110 -14","Chevrolet Opala -11","Jaguar XK -09","Jeep Wrangler -02","Lamborghini Urraco 03","Lincoln Town Car -66","Opel Corsa -87","Peugeot 206 -00","Porsche 928 -08","Renault 5 -06","Volvo 140 -55","Toyota Prius -14","Nissan Micra -88"];
   usedRegs = [];
   damageStatus= ["awaiting", "ongoing", "finished"];
-
-  var aCustomer = new Customer({
-    name: nameArr[Math.round(Math.random()*nameArr.length-1)],
-    number: numberArr[Math.round(Math.random()*numberArr.length-1)],
-  })
-
-  aCustomer.save(function(err){
-    if(err) {console.log(err)}
-    console.log("Customer Sparad!")
   
-    var aPart = new sparePart({
-      serial: serialArr[Math.round(Math.random()*serialArr.length-1)],
-      fitsModel: modelArr[Math.round(Math.random()*modelArr.length-1)],
-      description: descriptionArr[Math.round(Math.random()*descriptionArr.length-1)],
-      price: priceArr[Math.round(Math.random()*priceArr.length-1)]
+  var aVacation= new Vacation({
+    from: new Date("<2016-05-17>"), 
+    to: new Date("<2016-05-30>") 
+
+  })
+  aVacation.save(function(err){
+    if(err){console.log(err)}
+
+    var aEmployee = new Employee({
+      SSN: numberArr[Math.round(Math.random()*numberArr.length)],
+      name: nameArr[Math.round(Math.random()* nameArr.length)],
+      vacation: aVacation._id
     })
+    aEmployee.save(function(err){
+      if(err){console.log(err)}
+        
+      var aCustomer = new Customer({
+        name: nameArr[Math.round(Math.random()*nameArr.length-1)],
+        number: numberArr[Math.round(Math.random()*numberArr.length-1)],
+      })
 
-    aPart.save(function(err){
-      if(err) {console.log(err)}
-      
-      var aDamage = new Damage({
-        description: descArr[Math.round(Math.random()*descArr.length-1)],
-        hasWorkedOn: aCustomer._id,
-        hasWorkedForMinutes: Math.round(Math.random()*60),
-        sparePartsUsed: aPart._id,
-        status: damageStatus[Math.round(Math.random()*damageStatus.length)],
-      }) 
-      aDamage.save(function(err){
+      aCustomer.save(function(err){
         if(err) {console.log(err)}
-        
-        var enBil = new Bil({
-          model: modelArr[Math.round(Math.random()*modelArr.length-1)],
-          damages: aDamage._id,
-          customer: aCustomer._id,
-        });
+        console.log("Customer Sparad!")
+      
+        var aPart = new sparePart({
+          serial: serialArr[Math.round(Math.random()*serialArr.length-1)],
+          fitsModel: modelArr[Math.round(Math.random()*modelArr.length-1)],
+          description: descriptionArr[Math.round(Math.random()*descriptionArr.length-1)],
+          price: priceArr[Math.round(Math.random()*priceArr.length-1)]
+        })
 
-        var aReg = regArr[Math.round(Math.random()*regArr.length-1)];
-        
-        for(var i=0; i<usedRegs.length; i++) {
-          if(aReg == usedRegs[i]){
-            aReg = regArr[Math.round(Math.random()*regArr.length-1)];
-          }
-          continue    
-        }
-        enBil.registration = aReg;
-        usedRegs.push(aReg);
-
-        enBil.save(function(err){
+        aPart.save(function(err){
           if(err) {console.log(err)}
-        }); 
-        return enBil
+          
+          var aDamage = new Damage({
+            description: descArr[Math.round(Math.random()*descArr.length-1)],
+            hasWorkedOn: aCustomer._id,
+            hasWorkedForMinutes: Math.round(Math.random()*60),
+            sparePartsUsed: aPart._id,
+            status: damageStatus[Math.round(Math.random()*damageStatus.length)],
+          }) 
+          aDamage.save(function(err){
+            if(err) {console.log(err)}
+            
+            var enBil = new Bil({
+              model: modelArr[Math.round(Math.random()*modelArr.length-1)],
+              damages: aDamage._id,
+              customer: aCustomer._id,
+            });
+
+            var aReg = regArr[Math.round(Math.random()*regArr.length-1)];
+            
+            for(var i=0; i<usedRegs.length; i++) {
+              if(aReg == usedRegs[i]){
+                aReg = regArr[Math.round(Math.random()*regArr.length-1)];
+              }
+              continue    
+            }
+            enBil.registration = aReg;
+            usedRegs.push(aReg);
+
+            enBil.save(function(err){
+              if(err) {console.log(err)}
+            }); 
+            return enBil
+          });
+          return
+        });
+        return
       });
       return
     });
     return
   });
-  return
+  return  
 };
 
