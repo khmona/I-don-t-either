@@ -31,7 +31,7 @@ module.exports = function() {
     },
     DB: {
       host: '127.0.0.1',
-      db: 'SUW15dev',
+      db: 'wreckstad',
       modelDir: m.path.join(appRoot,'models/')
     },
     REST: {

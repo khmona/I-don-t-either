@@ -1,6 +1,4 @@
 'use strict';
-var dummyGen = require("../dummyGen.js");
-var populator = require("../populator.js")
 
 module.exports = class REST {
   constructor(express) {
@@ -14,36 +12,25 @@ module.exports = class REST {
   router() {
     var me = this;
     this.app.all(this.settings.route, function(req, res) {
-      if(req.params.model == "ny"){
-        dummyGen();
-        res.end();
 
+      var model = me.DB.getModel(req.params.model);
+      if (!me[req.method] || !model) {
+        res.sendStatus(404);
+        res.json({'err':'Undefined model'});
+        return;
       }
-      else if(req.params.model == "populate"){
-        
-        res.json(populator(me.DB));
 
+      var params = req.body || {};
+      params.model = req.params.model; 
+      if (req.params.modelID) {
+        params.modelID = req.params.modelID;
       }
-      else {
-        var model = me.DB.getModel(req.params.model);
-        if (!me[req.method] || !model || !model == "ny") {
-          res.sendStatus(404);
-          res.json({'err':'Undefined model'});
-          return;
-        }
 
-        var params = req.body || {};
-        params.model = req.params.model; 
-        if (req.params.modelID) {
-          params.modelID = req.params.modelID;
-        }
-
-        me[req.method](model, params, req, res);
-      }
+      me[req.method](model, params, req, res);
+      
     });
   }
 
-  
   POST(model, params, req, res) {
     var me = this,
         toSave = new model(params); 
@@ -56,25 +43,15 @@ module.exports = class REST {
 
   GET(model, params, req, res) {
 
-    
-    var me = this,
-        func = params.modelID ? 'findById' : 'find',
-        q = params.modelID ? params.modelID : {};
-
-    model[func](q, function(err, result) {
-      if (err) { me.error(err, res); return; } 
-    }).populate("damages")
-    .populate("sparePartsUsed")
-    .populate("customer")
-    .populate("hasWorkedOn")
-    .populate("vacation")
-    .exec(function(err,results){
-      res.json(results);
-    })
-
     if(!params.modelID){
       model.find(function(err, result){
-        res.json(result)
+         
+    }).populate("damages")
+      .populate("sparePartsUsed")
+      .populate("hasWorked") 
+      .populate("customer")
+      .populate("vacation").exec(function(err,results){
+        res.json(results);
       })
     }  
     else{
@@ -83,14 +60,13 @@ module.exports = class REST {
         res.end()
       })
     }
-
   }
   
-  
   PUT(model, params, req, res) {
-    if (!params.modelID) { this.error({error: 'Missing ID!'}, res); return; }
+    if (!params.modelID) { 
+      res.json({"ERROR": "Inget eller ogiltigt modelID"})
+    }
 
-    var me = this;
     model.findByIdAndUpdate(params.modelID, params, {new: true}, function (err, result) {
       if (err) { console.log(err) }
       res.json(result);
@@ -98,17 +74,13 @@ module.exports = class REST {
   }
 
   DELETE(model, params, req, res) {
-    if (!params.modelID) { this.error({error: 'Missing ID!'}, res); return; }
+    if (!params.modelID) { 
+      res.json({"ERROR": "Inget eller ogiltigt modelID"})
+    }
 
-    var me = this;
     model.findByIdAndRemove(params.modelID, function(err, result) {
       if (err) { console.log(err) }
       res.json({'ok': 'raderat'}); 
     });
-  }
-
-  error(err, res) {
-    res.status(400);
-    res.json(err);
   }
 };

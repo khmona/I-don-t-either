@@ -27,6 +27,7 @@ module.exports = class DB {
     // log successful connection
     connection.once('open', () => {
       console.log("Mongoose connected to "+this.settings.db);
+      m.dummyGen();
     });
   }
 
