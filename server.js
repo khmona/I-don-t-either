@@ -40,6 +40,8 @@ console.log("All loaded classes", Object.keys(g.classes));
 
 new g.classes.DB();
 
+new g.classes.SQL();
+
 new g.classes.LessWatch();
 
 new g.classes.Server();

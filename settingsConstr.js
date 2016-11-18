@@ -7,7 +7,7 @@ module.exports = function() {
       baseDir: m.path.join(appRoot,'classes/'),
       toLoad: [
         'DB',
-        'mySQL',
+        'SQL',
         'REST',
         'Server',
         'LessWatch',

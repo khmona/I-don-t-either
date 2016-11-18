@@ -1,17 +1,87 @@
 'use strict';
 
-module.exports = class mySQL {
-  constructor() {
-    // KOPPLING TILL SQL DATABAS
-    this.settings = g.settings.mySQL;
-    this.mySql = new g.classes.mySQL();
-    // this.mySql = m.mysql;
+module.exports = class SQL {
+  constructor(express) {
+    this.settings = g.settings.SQL;
+    // this.SQL = new g.classes.SQL();
+    this.SQL = m.mysql;
     this.app = express;
-
+    // this.connect();
     this.router();
   }
 
+  connect() {
+    this.connection = this.SQL.createConnection({
+      host: '127.0.0.1',
+      user: 'root',
+      password: 'admin',
+      database: 'wreckstadSql'
+      // database: 'wreckstad'
+    });
+
+    this.connection.connect((err) => {
+      if (!err) {
+        console.log("Database is connected");
+        return;
+      }
+      console.log("Error connecting database", err);
+    });
+  }
+
+
   router() {
+    //Allaroutes kommer in hit först, sen anropas efter metod
+
+  }
+
+};
+
+// EXAMPLES!!
+
+//---------------------------------------//
+
+  // POST(model, params, req, res) {
+
+  // }
+
+  // GET(model, params, req, res) {
+
+  // }
+
+  // PUT(model, params, req, res) {
+
+  // }
+
+  // DELETE(model, params, req, res) {
+
+  // }
+
+//----------------------------------------//
+
+// #1 ------------------------
+
+    // var me = this;
+    // this.app.all(this.settings.route, function (req, res) {
+
+    //   var model = me.DB.getModel(req.params.model);
+    //   if (!me[req.method] ||  !model) {
+    //     res.sendStatus(404);
+    //     res.json({ 'err': 'Undefined model' });
+    //     return;
+    //   }
+
+    //   var params = req.body ||  {};
+    //   params.model = req.params.model;
+    //   if (req.params.modelID) {
+    //     params.modelID = req.params.modelID;
+    //   }
+
+    //   me[req.method](model, params, req, res);
+
+    // });
+
+// #2 ---------------------------
+
     // router.post('/techgeek/v1/createEmployee', function (req, res, next) {
     //   try {
     //     var reqObj = req.body;
@@ -81,49 +151,8 @@ module.exports = class mySQL {
     //     return next(ex);
     //   }
     // });
-    //Allaroutes kommer in hit först, sen anropas efter metod
-  }
 
-  connect() {
-    this.connection = this.mySql.createConnection({
-      host: '127.0.0.1',
-      user: 'root',
-      password: 'admin',
-      // database: 'wreckstadSql'
-      database: 'wreckstad'
-    });
-
-    this.connection.connect((err) => {
-      if (!err) {
-        console.log("Database is connected");
-        return;
-      }
-      console.log("Error connecting database", err);
-    });
-  }
-};
-
-
-
-//   POST(model, params, req, res) {
-
-//   }
-
-//   GET(model, params, req, res) {
-
-//   }
-
-//   PUT(model, params, req, res) {
-
-//   }
-
-//   DELETE(model, params, req, res) {
-
-//   }
-// };
-
-
-
+// #3 -------------------------
 
 // READ(table, callback) {
 //   this.connection.query("SELECT * FROM " + table, (err, rows, fields) => {
