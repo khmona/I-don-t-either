@@ -9,11 +9,12 @@ module.exports = function() {
         'DB',
         'REST',
         'Server',
-        'LessWatch'
+        'LessWatch',
+        'Login'
       ]
     },
     Server: {
-      endpoint: '*',
+      endpoint: '/',
       webroot: 'public',
       indexFile: 'index.html',
       port: 3000
@@ -41,7 +42,7 @@ module.exports = function() {
       route: '/sql/:model/:modelID?'
     },
     Login: {
-      route: '/rest/login'
+      route: '/login'
     }
   };
 };

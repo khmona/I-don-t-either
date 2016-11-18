@@ -1,6 +1,5 @@
 'use strict';
 
-
 module.exports = class Server {
 
 	constructor(){
@@ -35,8 +34,10 @@ module.exports = class Server {
 			resave: false,
 			saveUninitialized: true
 		}));
-
+		
 		new g.classes.REST(this.app);
+ 		new g.classes.Login(this.app);
+   
 
 		var me = this;
 
