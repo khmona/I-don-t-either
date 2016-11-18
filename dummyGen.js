@@ -53,7 +53,7 @@ module.exports = function() {
               hasWorked: aEmployee._id,
               hasWorkedForMinutes: Math.round(Math.random()*60),
               sparePartsUsed: aPart._id,
-              status: damageStatus[Math.round(Math.random()*2)],
+              status: damageStatus[Math.round(Math.random()*2)]
             }) 
             aDamage.save(function(err){
               if(err) {console.log(err)}
@@ -81,6 +81,6 @@ module.exports = function() {
         });
       });
     });
-  }    
+  };    
 };
 

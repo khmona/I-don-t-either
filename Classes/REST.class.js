@@ -47,19 +47,19 @@ module.exports = class REST {
       model.find(function(err, result){
          
       }).populate("damages").populate("customer")
-        .populate("hasWorked").populate("sparePartsUsed").
-        populate("vacation").exec(function(err, resss){
+        .populate("hasWorked").populate("sparePartsUsed")
+        .populate("vacation").exec(function(err, resss){
           res.json(resss)
-        })
+      })
     }  
     else{
       model.findById(params.modelID, function(err, result){
        
       }).populate("damages").populate("customer")
-        .populate("hasWorked").populate("sparePartsUsed").
-        populate("vacation").exec(function(err, resss){
-          res.json(resss)
-        })
+        .populate("hasWorked").populate("sparePartsUsed")
+        .populate("vacation").exec(function(err, ressss){
+          res.json(ressss)
+      })
     }
   }
   
