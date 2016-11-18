@@ -11,6 +11,7 @@ module.exports = function() {
   usedRegs = [];
 
   for(var i=0; i<9; i++) {
+
     var aVacation = new m.modelsvacations({
       from: new Date("<2016-05-17>"), 
       to: new Date("<2016-05-30>") 
@@ -18,6 +19,7 @@ module.exports = function() {
     })
     aVacation.save(function(err){
       if(err){console.log(err)}
+
 
       var aEmployee = new m.modelsemployees({
         SSN: numberArr[Math.round(Math.random()*15)],
@@ -32,20 +34,20 @@ module.exports = function() {
           name: nameArr[Math.round(Math.random()*48)],
           number: numberArr[Math.round(Math.random()*40)],
         })
-        console.log(aCustomer)
         aCustomer.save(function(err){
           if(err) {console.log(err)}
           
+
           var aPart = new m.modelsspares({
             serial: serialArr[Math.round(Math.random()*195)],
             fitsModel: modelArr[Math.round(Math.random()*38)],
             description: descriptionArr[Math.round(Math.random()*26)],
             price: priceArr[Math.round(Math.random()*96)]
           })
-
           aPart.save(function(err){
             if(err) {console.log(err)}
-              
+            
+
             var aDamage = new m.modelsdamages({
               description: descArr[Math.round(Math.random()*38)],
               hasWorked: aEmployee._id,
@@ -55,15 +57,14 @@ module.exports = function() {
             }) 
             aDamage.save(function(err){
               if(err) {console.log(err)}
-                
+               
+
               var enBil = new m.modelscars({
                 model: modelArr[Math.round(Math.random()*38)],
                 damages: aDamage._id,
                 customer: aCustomer._id,
               });
-
               var aReg = regArr[Math.round(Math.random()*22)];
-              
               for(var i=0; i<usedRegs.length; i++) {
                 if(aReg == usedRegs[i]){
                   aReg = regArr[Math.round(Math.random()*22)];
@@ -72,7 +73,6 @@ module.exports = function() {
               }
               enBil.registration = aReg;
               usedRegs.push(aReg);
-
               enBil.save(function(err){
                 if(err) {console.log(err)}
               }); 

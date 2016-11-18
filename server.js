@@ -10,6 +10,7 @@ g = {};
   "serve-favicon",
   "cookie-parser",
   "body-parser",
+  "crypto",
   "gulp",
   "gulp-less",
   "gulp-clean-css",

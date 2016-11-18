@@ -46,19 +46,20 @@ module.exports = class REST {
     if(!params.modelID){
       model.find(function(err, result){
          
-    }).populate("damages")
-      .populate("sparePartsUsed")
-      .populate("hasWorked") 
-      .populate("customer")
-      .populate("vacation").exec(function(err,results){
-        res.json(results);
-      })
+      }).populate("damages").populate("customer")
+        .populate("hasWorked").populate("sparePartsUsed").
+        populate("vacation").exec(function(err, resss){
+          res.json(resss)
+        })
     }  
     else{
       model.findById(params.modelID, function(err, result){
-        res.json(result)
-        res.end()
-      })
+       
+      }).populate("damages").populate("customer")
+        .populate("hasWorked").populate("sparePartsUsed").
+        populate("vacation").exec(function(err, resss){
+          res.json(resss)
+        })
     }
   }
   
@@ -69,6 +70,7 @@ module.exports = class REST {
 
     model.findByIdAndUpdate(params.modelID, params, {new: true}, function (err, result) {
       if (err) { console.log(err) }
+
       res.json(result);
     });
   }
@@ -83,4 +85,18 @@ module.exports = class REST {
       res.json({'ok': 'raderat'}); 
     });
   }
+  
+  sha256(data){
+    return m.crypto.createHasch(data).digest("Base64");
+  }
+
+  login(req, res){
+
+    User.find({
+      email: req.body.email,
+      password: this.sha256(req.body.password) 
+    }, function(err, user){
+
+    });
+}
 };
