@@ -3,15 +3,15 @@
 module.exports = class SQL {
   constructor(express) {
     this.settings = g.settings.SQL;
-    // this.SQL = new g.classes.SQL();
-    this.SQL = m.mysql;
+    // this.mySql = new g.classes.SQL();
+    this.mySql = m.mysql;
     this.app = express;
-    // this.connect();
+    this.connect();
     this.router();
   }
 
   connect() {
-    this.connection = this.SQL.createConnection({
+    this.connection = this.mySql.createConnection({
       host: '127.0.0.1',
       user: 'root',
       password: 'admin',
@@ -32,7 +32,19 @@ module.exports = class SQL {
   router() {
     //Allaroutes kommer in hit först, sen anropas efter metod
 
-  }
+  //   var me = this;
+  //   this.app.all(this.settings.route, function (req, res) {
+  //     var table = req.params.model;
+  //     console.log('restSql');
+  //     if (!me[req.method + '_sql']) {
+  //       res.sendStatus(404);
+  //       return;
+  //     }
+
+  //     me[req.method + '_sql'](req, res, table);
+  //   });
+
+    }
 
 };
 
@@ -58,7 +70,84 @@ module.exports = class SQL {
 
 //----------------------------------------//
 
-// #1 ------------------------
+// !!!!! butch90/Grupp-Awesome-2nd/classes/REST.class.js !!!!! //
+
+	// router() {
+	// 	var me = this;
+	// 	this.app.all(g.settings.REST.route, function(req, res) {
+	// 		var model = me.dataBase.getModel(req.params.model);
+	// 		console.log('rest');
+	// 		if (!me[req.method]) {
+	// 			res.sendStatus(404);
+	// 			return;
+	// 		}
+
+	// 		me[req.method](req, res, model);
+	// 	});
+
+  //       this.app.all(g.settings.REST.routeSql, function(req, res) {
+  //           var table = req.params.model;
+  //           console.log('restSql');
+  //           if (!me[req.method + '_sql']) {
+  //               res.sendStatus(404);
+  //               return;
+  //           }
+
+  //           me[req.method + '_sql'](req, res, table);
+  //       });
+	// }
+
+//   GET_sql(req, res, table) {
+
+//     this.mySql.READ(req.params.id, table, function (err, rows, fields) {
+//       if (err) {
+//         console.log(err);
+//         res.json(err);
+//         return;
+//       }
+//       res.json(rows);
+//     });
+//   }
+
+//   POST_sql(req, res, table) {
+
+//     this.mySql.POST(req.body, table, function (err, status) {
+//       if (err) {
+//         console.log(err);
+//         res.json(err);
+//         return;
+//       }
+//       res.json(status);
+//     });
+//   }
+
+//   PUT_sql(req, res, table) {
+
+//     this.mySql.UPDATE(req.params.id, req.body, table, function (err, status) {
+//       if (err) {
+//         console.log(err);
+//         res.json(err);
+//         return;
+//       }
+//       res.json(status);
+//     });
+//   }
+
+//   DELETE_sql(req, res, table) {
+
+//     this.mySql.DELETE(req.params.id, table, function (err, status) {
+//       if (err) {
+//         console.log(err);
+//         res.json(err);
+//         return;
+//       }
+//       res.json(status);
+//     });
+//   }
+
+
+// #1 -----------------------------------//
+
 
     // var me = this;
     // this.app.all(this.settings.route, function (req, res) {
@@ -80,7 +169,9 @@ module.exports = class SQL {
 
     // });
 
-// #2 ---------------------------
+
+// #2 ------------------------------------//
+
 
     // router.post('/techgeek/v1/createEmployee', function (req, res, next) {
     //   try {
@@ -152,7 +243,9 @@ module.exports = class SQL {
     //   }
     // });
 
-// #3 -------------------------
+
+// #3 -----------------------------------//
+
 
 // READ(table, callback) {
 //   this.connection.query("SELECT * FROM " + table, (err, rows, fields) => {

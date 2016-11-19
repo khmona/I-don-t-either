@@ -10,6 +10,8 @@ module.exports = class Server {
 
 		this.db = new g.classes.DB();
 
+		// this.SQL = new g.classes.SQL()
+
 		this.setup();
 	}
 
