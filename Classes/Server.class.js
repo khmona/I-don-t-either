@@ -8,9 +8,7 @@ module.exports = class Server {
 
 		this.app = m.express();
 
-		this.db = new g.classes.DB();
-
-		// this.SQL = new g.classes.SQL()
+		//this.db = new g.classes.DB();
 
 		this.setup();
 	}
@@ -39,7 +37,6 @@ module.exports = class Server {
 		
 		new g.classes.REST(this.app);
  		new g.classes.Login(this.app);
-   
 
 		var me = this;
 
