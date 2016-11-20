@@ -1,4 +1,4 @@
-﻿-- --------------------------------------------------------
+-- --------------------------------------------------------
 -- Host:                         127.0.0.1
 -- Server version:               5.7.16-log - MySQL Community Server (GPL)
 -- Server OS:                    Win64
@@ -12,11 +12,11 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- Dumping database structure for bilverkstadsql
-CREATE DATABASE IF NOT EXISTS `bilverkstadsql` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `bilverkstadsql`;
+-- Dumping database structure for wreckstadsql
+CREATE DATABASE IF NOT EXISTS `wreckstadsql` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `wreckstadsql`;
 
--- Dumping structure for table bilverkstadsql.customers
+-- Dumping structure for table wreckstadsql.customers
 CREATE TABLE IF NOT EXISTS `customers` (
   `firstname` varchar(256) NOT NULL,
   `lastname` varchar(256) NOT NULL,
@@ -28,14 +28,14 @@ CREATE TABLE IF NOT EXISTS `customers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bilverkstadsql.customers: ~2 rows (approximately)
+-- Dumping data for table wreckstadsql.customers: ~2 rows (approximately)
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
 INSERT INTO `customers` (`firstname`, `lastname`, `address`, `phone`, `email`, `birthdate`, `id`) VALUES
 	('Per', 'Persson', 'Persgatan 1', '332211', 'per@persson.se', '2016-11-15', 1),
 	('Nils', 'Nilsson', 'Nilsgatan 1', '443322', 'nils@nilsson.se', '2016-11-14', 2);
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 
--- Dumping structure for table bilverkstadsql.employees
+-- Dumping structure for table wreckstadsql.employees
 CREATE TABLE IF NOT EXISTS `employees` (
   `firstname` varchar(256) NOT NULL,
   `lastname` varchar(256) NOT NULL,
@@ -50,14 +50,14 @@ CREATE TABLE IF NOT EXISTS `employees` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bilverkstadsql.employees: ~2 rows (approximately)
+-- Dumping data for table wreckstadsql.employees: ~2 rows (approximately)
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
 INSERT INTO `employees` (`firstname`, `lastname`, `address`, `phone`, `email`, `birthdate`, `vacationstart`, `vacationend`, `title`, `id`) VALUES
 	('Sven', 'Svensson', 'Svensgatan 1', '112233', 'sven@svensson.se', '2016-11-15', NULL, NULL, 'mechanic', 1),
 	('Jöns', 'Jönsson', 'Jönsgatan 1', '554433', 'jons@jonsson.se', '2016-11-13', NULL, NULL, 'painter', 2);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 
--- Dumping structure for table bilverkstadsql.orderrow
+-- Dumping structure for table wreckstadsql.orderrow
 CREATE TABLE IF NOT EXISTS `orderrow` (
   `service` varchar(256) NOT NULL,
   `partId` varchar(256) NOT NULL,
@@ -73,14 +73,14 @@ CREATE TABLE IF NOT EXISTS `orderrow` (
   CONSTRAINT `parts` FOREIGN KEY (`parts`) REFERENCES `parts` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bilverkstadsql.orderrow: ~2 rows (approximately)
+-- Dumping data for table wreckstadsql.orderrow: ~2 rows (approximately)
 /*!40000 ALTER TABLE `orderrow` DISABLE KEYS */;
 INSERT INTO `orderrow` (`service`, `partId`, `employees`, `parts`, `price`, `hours`, `id`) VALUES
 	('repair', '3', 2, 2, '300', '1', 1),
 	('paint', '4', 1, 1, '600', '2', 2);
 /*!40000 ALTER TABLE `orderrow` ENABLE KEYS */;
 
--- Dumping structure for table bilverkstadsql.orders
+-- Dumping structure for table wreckstadsql.orders
 CREATE TABLE IF NOT EXISTS `orders` (
   `reg` varchar(256) NOT NULL,
   `model` varchar(256) NOT NULL,
@@ -96,14 +96,14 @@ CREATE TABLE IF NOT EXISTS `orders` (
   CONSTRAINT `orderrow` FOREIGN KEY (`orderrows`) REFERENCES `orderrow` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bilverkstadsql.orders: ~2 rows (approximately)
+-- Dumping data for table wreckstadsql.orders: ~2 rows (approximately)
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 INSERT INTO `orders` (`reg`, `model`, `date`, `id`, `customer`, `orderrows`, `status`) VALUES
 	('xxx111', 'tesla', '2016-11-15', 2, 1, 1, 'ongoing'),
 	('xxx222', 'tesla', '2016-11-15', 4, 1, 1, 'ongoing');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
--- Dumping structure for table bilverkstadsql.parts
+-- Dumping structure for table wreckstadsql.parts
 CREATE TABLE IF NOT EXISTS `parts` (
   `name` varchar(256) NOT NULL,
   `partId` varchar(256) NOT NULL,
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `parts` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table bilverkstadsql.parts: ~2 rows (approximately)
+-- Dumping data for table wreckstadsql.parts: ~2 rows (approximately)
 /*!40000 ALTER TABLE `parts` DISABLE KEYS */;
 INSERT INTO `parts` (`name`, `partId`, `models`, `price`, `stock`, `id`) VALUES
 	('part1', '1', 'volvo', '100', '10', 1),

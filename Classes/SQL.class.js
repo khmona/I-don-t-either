@@ -4,6 +4,8 @@ module.exports = class SQL {
   constructor(express){
     this.app = express;
     this.connect();
+    // this.router();
+
   }
   
   connect() {
@@ -36,22 +38,22 @@ module.exports = class SQL {
       });
     }
   }
+  
+  POST(data, table, callback) {
+    this.connection.query("INSERT INTO " + table + " SET ?", data, (err, status) => {
+      callback(err, status);
+    });
+  }
 
-    POST(data, table, callback) {
-      this.connection.query("INSERT INTO " + table + " SET ?", data, (err, status) => {
-        callback(err, status);
-      });
-    }
+  UPDATE(id, data, table, callback) {
+    this.connection.query("UPDATE " + table + " SET ? WHERE id = ?", [data, id], (err, status) => {
+      callback(err, status);
+    });
+  }
 
-    UPDATE(id, data, table, callback) {
-      this.connection.query("UPDATE " + table + " SET ? WHERE id = ?", [data, id], (err, status) => {
-        callback(err, status);
-      });
-    }
-
-    DELETE(id, table, callback) {
-      this.connection.query("DELETE FROM " + table + " WHERE id = ?", id, (err, status) => {
-        callback(err, status);
-      });
-    }
+  DELETE(id, table, callback) {
+    this.connection.query("DELETE FROM " + table + " WHERE id = ?", id, (err, status) => {
+      callback(err, status);
+    });
+  }
 };
