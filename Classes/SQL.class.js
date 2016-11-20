@@ -13,10 +13,12 @@ module.exports = class SQL {
   connect() {
     this.connection = this.mySql.createConnection({
       host: '127.0.0.1',
+      // Your mySQL user (default: 'root')
       user: 'root',
-      password: 'Mprototype5%',
+      // Your mySQL password
+      password: 'admin',
+      // Your mySQL database
       database: 'wreckstadsql'
-      // database: 'wreckstad'
     });
 
     this.connection.connect((err) => {
