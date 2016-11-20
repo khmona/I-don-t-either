@@ -14,8 +14,8 @@ module.exports = class SQL {
     this.connection = this.mySql.createConnection({
       host: '127.0.0.1',
       user: 'root',
-      password: 'admin',
-      database: 'wreckstadSql'
+      password: 'Mprototype5%',
+      database: 'wreckstadsql'
       // database: 'wreckstad'
     });
 
