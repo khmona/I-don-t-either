@@ -7,7 +7,7 @@ module.exports = class SQL {
     this.mySql = m.mysql;
     this.app = express;
     this.connect();
-    this.router();
+    // this.router();
   }
 
   connect() {
@@ -28,23 +28,9 @@ module.exports = class SQL {
     });
   }
 
+  // router() {
 
-  router() {
-    //Allaroutes kommer in hit först, sen anropas efter metod
-
-  //   var me = this;
-  //   this.app.all(this.settings.route, function (req, res) {
-  //     var table = req.params.model;
-  //     console.log('restSql');
-  //     if (!me[req.method + '_sql']) {
-  //       res.sendStatus(404);
-  //       return;
-  //     }
-
-  //     me[req.method + '_sql'](req, res, table);
-  //   });
-
-    }
+  //   }
 
 };
 
