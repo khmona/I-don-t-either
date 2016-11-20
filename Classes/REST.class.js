@@ -11,7 +11,6 @@ module.exports = class REST {
 
   router() {
     var me = this;
-<<<<<<< HEAD
     this.app.all(this.settings.route, function(req, res) {
       if(req.params.type == "rest"){
         var model = me.DB.getModel(req.params.model);
@@ -36,44 +35,8 @@ module.exports = class REST {
         if(req.method == "PUT"){}
         if(req.method == "POST"){}
         if(req.method == "DELETE"){}
-      
       }  
-=======
-    this.app.all(this.settings.route, function (req, res) {
-
-      var model = me.DB.getModel(req.params.model);
-      if (!me[req.method] || !model) {
-        res.sendStatus(404);
-        res.json({ 'err': 'Undefined model' });
-        return;
-      }
-
-      var params = req.body || {};
-      params.model = req.params.model;
-      if (req.params.modelID) {
-        params.modelID = req.params.modelID;
-      }
-
-      me[req.method](model, params, req, res);
-
->>>>>>> ce2a50eabf5493301e5ea4c8ed4aa58b7bec6624
-    });
-
-    // ***SQL*** //
-
-    this.app.all(g.settings.SQL.route, function (req, res) {
-      var table = req.params.model;
-      console.log('restSql');
-      if (!me[req.method + '_sql']) {
-        res.sendStatus(404);
-        return;
-      }
-
-      me[req.method + '_sql'](req, res, table);
-    });
-
-    // ***SQL*** //
-
+    });  
   }
 
   POST(model, params, req, res) {
