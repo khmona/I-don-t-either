@@ -24,36 +24,9 @@ module.exports = class SQL {
       }
     });
     connection = this.connection;
+    connection.query("SELECT * FROM employees", function(err, rows, fields){
+      console.log(rows)
+    })
     return this.connection
-  }
-
-  READ(id, table, callback) {
-    if(id){
-      this.connection.query("SELECT * FROM " + table + " WHERE id = ?", id, (err, rows, fields) => {
-        callback(err, rows, fields);
-      });
-    }else{
-      this.connection.query("SELECT * FROM " + table, (err, rows, fields) => {
-        callback(err, rows, fields);
-      });
-    }
-  }
-  
-  POST(data, table, callback) {
-    this.connection.query("INSERT INTO " + table + " SET ?", data, (err, status) => {
-      callback(err, status);
-    });
-  }
-
-  UPDATE(id, data, table, callback) {
-    this.connection.query("UPDATE " + table + " SET ? WHERE id = ?", [data, id], (err, status) => {
-      callback(err, status);
-    });
-  }
-
-  DELETE(id, table, callback) {
-    this.connection.query("DELETE FROM " + table + " WHERE id = ?", id, (err, status) => {
-      callback(err, status);
-    });
   }
 };
