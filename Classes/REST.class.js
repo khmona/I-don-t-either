@@ -32,9 +32,18 @@ module.exports = class REST {
             res.json(rows)
           })
         }
-        if(req.method == "PUT"){}
-        if(req.method == "POST"){}
-        if(req.method == "DELETE"){}
+        if(req.method == "POST"){me.CREATE(req.body, req.params.model, function(err, rows, fields){
+            res.json(rows)
+          })
+        }
+        if(req.method == "PUT"){me.UPDATE(req.params.modelID, req.body, req.params.model, function(err, rows, fields){
+            res.json(rows)   
+          })
+        }
+        if(req.method == "DELETE"){me.DELEETEE(req.params.modelID, req.params.model, function(err, rows, fields){
+            res.json({"Deleted id: ": req.params.modelID})
+          })
+        }
       }  
     });  
   }
@@ -94,21 +103,6 @@ module.exports = class REST {
     });
   }
 
-  // ***SQL*** //
-
-  GET_sql(req, res, table) {
-
-    this.mySql.READ(req.params.id, table, function (err, rows, fields) {
-      if (err) {
-        console.log(err);
-        res.json(err);
-        return;
-      }
-      res.json(rows);
-    });
-  }
-
-<<<<<<< HEAD
   READ(id, table, callback) {
     if(id){
       this.SQL.connect().query("SELECT * FROM " + table + " WHERE id = ?", id, (err, rows, fields) => {
@@ -122,69 +116,19 @@ module.exports = class REST {
   }
 
   CREATE(data, table, callback) {
-    this.connection.query("INSERT INTO " + table + " SET ?", data, (err, status) => {
+    this.SQL.connect().query("INSERT INTO " + table + " SET ?", data, (err, status) => {
       callback(err, status);
     });
   }
 
   UPDATE(id, data, table, callback) {
-    this.connection.query("UPDATE " + table + " SET ? WHERE id = ?", [data, id], (err, status) => {
+    this.SQL.connect().query("UPDATE " + table + " SET ? WHERE id = ?", [data, id], (err, status) => {
       callback(err, status);
     });
   }
-=======
-  POST_sql(req, res, table) {
-
-    this.mySql.POST(req.body, table, function (err, status) {
-      if (err) {
-        console.log(err);
-        res.json(err);
-        return;
-      }
-      res.json(status);
-    });
-  }
-
-  PUT_sql(req, res, table) {
-
-    this.mySql.UPDATE(req.params.id, req.body, table, function (err, status) {
-      if (err) {
-        console.log(err);
-        res.json(err);
-        return;
-      }
-      res.json(status);
-    });
-  }
-
-  DELETE_sql(req, res, table) {
-
-    this.mySql.DELETE(req.params.id, table, function (err, status) {
-      if (err) {
-        console.log(err);
-        res.json(err);
-        return;
-      }
-      res.json(status);
-    });
-  }
-
-  // ***SQL*** //
-
-  sha256(data) {
-    return m.crypto.createHasch(data).digest("Base64");
-  }
-
-  login(req, res) {
-
-    User.find({
-      email: req.body.email,
-      password: this.sha256(req.body.password)
-    }, function (err, user) {
->>>>>>> ce2a50eabf5493301e5ea4c8ed4aa58b7bec6624
 
   DELEETEE(id, table, callback) {
-    this.connection.query("DELETE FROM " + table + " WHERE id = ?", id, (err, status) => {
+    this.SQL.connect().query("DELETE FROM " + table + " WHERE id = ?", id, (err, status) => {
       callback(err, status);
     });
   }
